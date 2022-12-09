@@ -15,35 +15,25 @@ class MineSweeper {
     init {
         println("How many mines do you want on the field?")
         val numberOfMines = readln().toInt()
-        val numberOfBlank = (BoardSize * BoardSize) - numberOfMines
-        var random: Field
-        var mine = 0
-        var blank = 0
+        var count = 0
 
+        while (count < numberOfMines) {
+            val randomCell = Random.nextInt(BoardSize)
+            val randomCell2 = Random.nextInt(BoardSize)
 
-        for (i in board.indices) {
-            var j = 0
-
-            while (j < BoardSize) {
-                random = random()
-                if (random == Field.MINE && mine < numberOfMines) {
-                    board[i][j] = random
-                    mine += 1
-                } else if (random == Field.BLANK && blank < numberOfBlank) {
-                    board[i][j] = random
-                    blank += 1
-                } else {
-                    j--
-                }
-                j++
+            if (board[randomCell][randomCell2] == Field.BLANK) {
+                board[randomCell][randomCell2] = Field.MINE
+            } else {
+                count--
             }
+            count++
         }
     }
 
-    fun random(): Field {
+/*    fun random(): Field {
         val list = listOf<Field>(Field.MINE, Field.BLANK, Field.BLANK, Field.BLANK)
         return list[Random.nextInt(4)]
-    }
+    }*/
 
     fun printBoard() {
         for (i in board.indices) {
